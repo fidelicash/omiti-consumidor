@@ -27,7 +27,7 @@ class HistoricoTVC: UITableViewCell {
         
         var tipo = ""
         if KeychainWrapper.standard.string(forKey: KEY_UID)! == origin {
-            self.entradaSaidaIMG.image = #imageLiteral(resourceName: "Down")
+            self.entradaSaidaIMG.image = #imageLiteral(resourceName: "down")
             tipo = origin
         } else {
             self.entradaSaidaIMG.image = #imageLiteral(resourceName: "UP")
