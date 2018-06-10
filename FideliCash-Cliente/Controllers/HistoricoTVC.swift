@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import SwiftKeychainWrapper
 
 class HistoricoTVC: UITableViewCell {
 
@@ -15,6 +16,7 @@ class HistoricoTVC: UITableViewCell {
     @IBOutlet weak var nomeLbl: UILabel!
     @IBOutlet weak var valorLbl: UILabel!
     
+    @IBOutlet weak var entradaSaidaIMG: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -22,7 +24,17 @@ class HistoricoTVC: UITableViewCell {
     }
 
     func configureCell(date: String, origin: String, target: String, value: Double) {
-        DataService.ds.REF_USERS.child(target).observe(.value, with: { (snapshot) in
+        
+        var tipo = ""
+        if KeychainWrapper.standard.string(forKey: KEY_UID)! == origin {
+            self.entradaSaidaIMG.image = #imageLiteral(resourceName: "Down")
+            tipo = origin
+        } else {
+            self.entradaSaidaIMG.image = #imageLiteral(resourceName: "UP")
+            tipo = target
+        }
+        
+        DataService.ds.REF_USERS.child(tipo).observe(.value, with: { (snapshot) in
             if let snapshot = snapshot.children.allObjects as? [DataSnapshot] {
                 for snap in snapshot {
                     if snap.key == "nome" {

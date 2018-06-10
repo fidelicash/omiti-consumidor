@@ -69,6 +69,7 @@ class Historico {
             self._value = value
         }
         
+        
         _postRef = DataService.ds.REF_HISTORY.child(_postKey)
     }
     
